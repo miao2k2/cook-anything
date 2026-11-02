@@ -1,0 +1,56 @@
+/**
+ * Bộ icon vẽ tay theo phong cách Planner (stroke bo tròn, đường kẻ hơi méo).
+ * Dùng chung một <symbol> để tái sử dụng qua thẻ <use>.
+ */
+
+export const ICON_SYMBOLS: Record<string, string> = {
+  logo: `<path class="pi-ia" d="M12 3.2c-4.6 0-8.3 3.5-8.3 7.9 0 2.5 1.3 4.7 3.3 6.1-.1 1-.6 2.2-1.7 3.2 1.9-.1 3.4-.7 4.4-1.4.7.2 1.5.3 2.3.3 4.6 0 8.3-3.5 8.3-7.9S16.6 3.2 12 3.2z"/><circle class="pi-dot" cx="9.4" cy="10.6" r="1"/><circle class="pi-dot" cx="14.6" cy="10.6" r="1"/><path class="pi-sk" d="M9.8 14.2c1.4 1.1 3 1.1 4.4 0"/>`,
+  goals: `<circle class="pi-ia" cx="12" cy="12" r="8.4"/><circle class="pi-sk" cx="12" cy="12" r="4.6"/><circle class="pi-dot" cx="12" cy="12" r="1.6"/><path class="pi-sk" d="M18.4 5.6l1.5-1.5M4.1 19.9l-1.5 1.5"/>`,
+  habit: `<path class="pi-ia" d="M5 4.5h14v15H5z"/><path class="pi-sk" d="M8.4 12.2l2.5 2.5 4.7-5"/><path class="pi-sk" d="M8.5 2.5v3.6M15.5 2.5v3.6M5 8.6h14"/>`,
+  week: `<path class="pi-ia" d="M4.5 6.5h15v13h-15z"/><path class="pi-sk" d="M4.5 10.4h15M9.4 10.4v9.1M14.6 10.4v9.1"/><path class="pi-sk" d="M8 3.5v4M16 3.5v4"/>`,
+  year: `<path class="pi-ia" d="M4.6 7.4h14.8v12.2H4.6z"/><path class="pi-sk" d="M4.6 11.6h14.8M12 7.4v12.2"/><path class="pi-sk" d="M8 3.6v4M16 3.6v4"/>`,
+  chart: `<path class="pi-sk" d="M4 19.6h16"/><path class="pi-ia" d="M6.5 16.2l3.4-4.1 2.8 2.6 4.6-6"/><circle class="pi-dot" cx="6.5" cy="16.2" r="1.2"/><circle class="pi-dot" cx="9.9" cy="12.1" r="1.2"/><circle class="pi-dot" cx="12.7" cy="14.7" r="1.2"/><circle class="pi-dot" cx="17.3" cy="8.7" r="1.2"/>`,
+  heart: `<path class="pi-ia" d="M12 20.2s-7.6-4.6-7.6-9.5A4.3 4.3 0 0 1 12 8.2a4.3 4.3 0 0 1 7.6 2.5c0 4.9-7.6 9.5-7.6 9.5z"/>`,
+  coin: `<circle class="pi-ia" cx="12" cy="12" r="8.3"/><path class="pi-sk" d="M12 7.4v9.2M14.6 9.6c-.6-.8-1.6-1.2-2.6-1.2-1.5 0-2.6.8-2.6 2s1 1.7 2.6 2 2.7.8 2.7 2-1.2 2-2.7 2c-1.1 0-2.1-.4-2.7-1.3"/>`,
+  briefcase: `<path class="pi-ia" d="M3.8 8.2h16.4v11H3.8z"/><path class="pi-sk" d="M8.6 8.2V6.1a1.6 1.6 0 0 1 1.6-1.6h3.6a1.6 1.6 0 0 1 1.6 1.6v2.1M3.8 12.4h16.4"/>`,
+  sprout: `<path class="pi-ia" d="M12 21v-8.2"/><path class="pi-ia" d="M12 12.8C12 9.5 9.3 7 6 7c0 3.4 2.7 5.8 6 5.8z"/><path class="pi-ia" d="M12 12.8c0-3.7 2.9-6.4 6.5-6.4 0 3.7-2.9 6.4-6.5 6.4z"/>`,
+  book: `<path class="pi-ia" d="M4 5.2c2.8-.8 5.4-.8 8 .6 2.6-1.4 5.2-1.4 8-.6v13c-2.8-.8-5.4-.8-8 .6-2.6-1.4-5.2-1.4-8-.6z"/><path class="pi-sk" d="M12 5.8v13.4"/>`,
+  settings: `<circle class="pi-ia" cx="12" cy="12" r="3.1"/><path class="pi-sk" d="M12 3.4l1.2 2.4 2.6-.6 1 2.5 2.5 1-.6 2.6 2.1 1.7-1.5 2.3 1.5 2.3-2.1 1.7.6 2.6-2.5 1-1 2.5-2.6-.6L12 20.6l-1.2-2.4-2.6.6-1-2.5-2.5-1 .6-2.6L3.2 11l1.5-2.3L3.2 6.4l2.1-1.7-.6-2.6 2.5-1 1-2.5 2.6.6z"/>`,
+  eye: `<path class="pi-ia" d="M2.6 12S6 6.4 12 6.4 21.4 12 21.4 12 18 17.6 12 17.6 2.6 12 2.6 12z"/><circle class="pi-ia" cx="12" cy="12" r="2.9"/>`,
+  logout: `<path class="pi-sk" d="M14.5 4.5h4a1.6 1.6 0 0 1 1.6 1.6v11.8a1.6 1.6 0 0 1-1.6 1.6h-4"/><path class="pi-sk" d="M10 8.2L6.2 12l3.8 3.8M6.4 12H16"/>`,
+  people: `<circle class="pi-ia" cx="9.2" cy="8.6" r="3.4"/><path class="pi-ia" d="M2.9 19.4c0-3.3 2.8-5.6 6.3-5.6s6.3 2.3 6.3 5.6"/><path class="pi-sk" d="M16.2 5.6a3.2 3.2 0 0 1 0 6.2M17.4 13.9c2.4.6 3.9 2.5 3.9 5.1"/>`,
+  plus: `<path class="pi-sk" d="M12 5.4v13.2M5.4 12h13.2"/>`,
+  "chev-l": `<path class="pi-sk" d="M14.6 5.8L8.4 12l6.2 6.2"/>`,
+  "chev-r": `<path class="pi-sk" d="M9.4 5.8L15.6 12l-6.2 6.2"/>`,
+  "chev-d": `<path class="pi-sk" d="M5.8 9.4L12 15.6l6.2-6.2"/>`,
+  x: `<path class="pi-sk" d="M6.2 6.2l11.6 11.6M17.8 6.2L6.2 17.8"/>`,
+  check: `<path class="pi-sk" d="M5 12.6l4.6 4.4L19 6.6"/>`,
+  menu: `<path class="pi-sk" d="M4 7h16M4 12h16M4 17h16"/>`,
+  trash: `<path class="pi-sk" d="M4.6 7h14.8M9.4 7V4.9h5.2V7M6.6 7l.9 12.1a1.6 1.6 0 0 0 1.6 1.5h5.8a1.6 1.6 0 0 0 1.6-1.5L17.4 7"/><path class="pi-sk" d="M10.3 11v6M13.7 11v6"/>`,
+  clock: `<circle class="pi-ia" cx="12" cy="12" r="8.4"/><path class="pi-sk" d="M12 7.2V12l3.2 2"/>`,
+  gift: `<path class="pi-ia" d="M4.4 11.2h15.2v8.4H4.4z"/><path class="pi-sk" d="M3.2 7.4h17.6v3.8H3.2zM12 7.4v12.2"/><path class="pi-sk" d="M12 7.4C10.6 4.6 9.3 3.4 8 3.4a2 2 0 0 0 0 4M12 7.4c1.4-2.8 2.7-4 4-4a2 2 0 0 1 0 4"/>`,
+  palette: `<path class="pi-ia" d="M12 3.6c-4.7 0-8.5 3.6-8.5 8.1 0 4.4 3.8 8.1 8.5 8.1 1.4 0 2.2-.9 2.2-1.9 0-.5-.2-.9-.5-1.3-.3-.4-.4-.7-.4-1.1 0-1 .8-1.8 1.9-1.8h1.5c2.4 0 4.3-1.8 4.3-4.1 0-3.3-3.9-6-9-6z"/><circle class="pi-dot" cx="8" cy="10" r="1.1"/><circle class="pi-dot" cx="12" cy="7.4" r="1.1"/><circle class="pi-dot" cx="16" cy="9.6" r="1.1"/><circle class="pi-dot" cx="7.6" cy="14.4" r="1.1"/>`,
+  note: `<path class="pi-ia" d="M7 21l1-3.5 9-9 2.5 2.5-9 9z"/><path class="pi-sk" d="M4 20l1-4.2L15.6 5.2a2 2 0 0 1 2.8 0l.4.4a2 2 0 0 1 0 2.8L8.2 19 4 20zM13.8 7l3.2 3.2"/>`,
+  flame: `<path class="pi-ia" d="M12.6 21c-1.6 0-2.7-1.1-2.7-2.6 0-1.6 1.4-2.4 2.7-4.1 1.3 1.7 2.7 2.5 2.7 4.1 0 1.5-1.1 2.6-2.7 2.6z"/><path class="pi-sk" d="M12 21c-3.9 0-6.5-2.6-6.5-6.1 0-3.6 3.2-5.4 3.9-9.4 2 1.1 3.3 3 3.6 4.9.8-.6 1.4-1.6 1.6-2.7 2.1 1.6 3.9 4.2 3.9 7.2 0 3.5-2.6 6.1-6.5 6.1z"/>`,
+  trophy: `<path class="pi-ia" d="M9 5h8v4.5a4 4 0 0 1-8 0z"/><path class="pi-sk" d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H5.6a2.6 2.6 0 0 0 2.7 3.4M16 6h2.4a2.6 2.6 0 0 1-2.7 3.4M12 13v3.5M8.5 20h7M9.6 20c0-1.8 1.1-3.5 2.4-3.5s2.4 1.7 2.4 3.5"/>`,
+  sparkle: `<path class="pi-ia" d="M12 3.4l1.9 4.7 4.7 1.9-4.7 1.9L12 16.6l-1.9-4.7-4.7-1.9 4.7-1.9z"/><path class="pi-sk" d="M18.4 15.4l.9 2.2 2.2.9-2.2.9-.9 2.2-.9-2.2-2.2-.9 2.2-.9z"/>`,
+  cloud: `<path class="pi-ia" d="M7.4 19.4a4.4 4.4 0 0 1-.4-8.8 5.6 5.6 0 0 1 10.8-1.1 4.3 4.3 0 0 1-.5 8.5z"/>`,
+  help: `<circle class="pi-ia" cx="12" cy="12" r="8.4"/><path class="pi-sk" d="M9.7 9.4a2.4 2.4 0 0 1 4.7.6c0 1.6-2.4 2.4-2.4 2.4"/><circle class="pi-dot" cx="12" cy="16.2" r="1.1"/>`,
+  alert: `<path class="pi-ia" d="M12 3.8L21.4 20H2.6z"/><path class="pi-sk" d="M12 9.6v4.6"/><circle class="pi-dot" cx="12" cy="17" r="1.1"/>`,
+  bell: `<circle class="pi-ia" cx="13.5" cy="9" r="4.4"/><path class="pi-sk" d="M5.8 17.2h12.4l-1.6-2.4V10a4.6 4.6 0 0 0-9.2 0v4.8z"/><path class="pi-sk" d="M10 19.6a2 2 0 0 0 4 0"/>`,
+  sound: `<path class="pi-ia" d="M4.5 9.4h3.2L12 5.6v12.8L7.7 14.6H4.5z"/><path class="pi-sk" d="M15.4 9.2a4 4 0 0 1 0 5.6M18 6.6a7.6 7.6 0 0 1 0 10.8"/>`,
+  mute: `<path class="pi-ia" d="M4.5 9.4h3.2L12 5.6v12.8L7.7 14.6H4.5z"/><path class="pi-sk" d="M15.6 9.6l4.8 4.8M20.4 9.6l-4.8 4.8"/>`,
+  play: `<path class="pi-ia" d="M7.3 6.9l8.6 5.6-8.6 5.6z"/>`,
+  pause: `<rect class="pi-sk" x="6.5" y="5.5" width="3.8" height="13" rx="1.2"/><rect class="pi-sk" x="13.7" y="5.5" width="3.8" height="13" rx="1.2"/>`,
+  music: `<circle class="pi-ia" cx="8.5" cy="17.8" r="2.8"/><circle class="pi-sk" cx="7.5" cy="17" r="2.8"/><circle class="pi-sk" cx="17" cy="15" r="2.8"/><path class="pi-sk" d="M10.3 17V6.4l9.5-2V15"/>`,
+  prev: `<path class="pi-ia" d="M16.7 6.9l-8.6 5.6 8.6 5.6z"/><path class="pi-sk" d="M17 5.8L9.6 12 17 18.2zM6 5.8v12.4"/>`,
+  next: `<path class="pi-ia" d="M7.3 6.9l8.6 5.6-8.6 5.6z"/><path class="pi-sk" d="M7 5.8L15.4 12 7 18.2zM18 5.8v12.4"/>`,
+  list: `<rect class="pi-ia" x="7" y="5.5" width="14" height="14" rx="3"/><path class="pi-sk" d="M9.5 7.5h10.5M9.5 12h10.5M9.5 16.5h7"/><circle class="pi-dot" cx="4.8" cy="7.5" r="1.1"/><circle class="pi-dot" cx="4.8" cy="12" r="1.1"/><circle class="pi-dot" cx="4.8" cy="16.5" r="1.1"/>`,
+  bulb: `<circle class="pi-ia" cx="13.2" cy="9.4" r="5"/><path class="pi-sk" d="M9.3 15.6c0-1.7-2.9-3-2.9-6.3a5.6 5.6 0 0 1 11.2 0c0 3.3-2.9 4.6-2.9 6.3z"/><path class="pi-sk" d="M9.6 18.3h4.8M10.5 20.8h3"/><path class="pi-sk" d="M10.4 11.6l1.6 1.6 1.6-1.6M12 13.2v2.2"/>`,
+  repeat: `<circle class="pi-ia" cx="13" cy="12" r="5"/><path class="pi-sk" d="M5 11a6.5 6.5 0 0 1 11.5-4.2M19 13a6.5 6.5 0 0 1-11.5 4.2"/><path class="pi-sk" d="M16.8 3.6v3.4h-3.4M7.2 20.4V17h3.4"/>`,
+  flag: `<path class="pi-ia" d="M7 5h10.5l-2.4 3.8 2.4 3.8H7z"/><path class="pi-sk" d="M6 21V4M6 4.6h11.5l-2.4 3.8 2.4 3.8"/>`,
+};
+
+export function IconSprite() {
+  return null;
+}
