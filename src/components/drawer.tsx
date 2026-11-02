@@ -4,15 +4,17 @@ import Link from "next/link";
 
 import { Icon } from "@/components/icon";
 import { LogoutButton } from "@/components/logout-btn";
-import { SECONDARY_NAV, PRIMARY_NAV, isActive } from "@/lib/nav";
+import { SECONDARY_NAV, PRIMARY_NAV, ADMIN_NAV, isActive } from "@/lib/nav";
 
 export function Drawer({
   pathname,
   email,
+  isAdmin,
   onClose,
 }: {
   pathname: string;
   email: string;
+  isAdmin: boolean;
   onClose: () => void;
 }) {
   const renderLinks = (items: typeof PRIMARY_NAV) =>
@@ -70,6 +72,14 @@ export function Drawer({
           <div className="my-4 border-t border-dashed border-[var(--p-line)]" />
 
           <ul className="grid gap-1">{renderLinks(SECONDARY_NAV)}</ul>
+
+          {isAdmin ? (
+            <>
+              <div className="my-4 border-t border-dashed border-[var(--p-line)]" />
+
+              <ul className="grid gap-1">{renderLinks(ADMIN_NAV)}</ul>
+            </>
+          ) : null}
         </nav>
 
         <div className="px-4 py-4 border-t border-[var(--p-line)]">

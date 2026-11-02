@@ -24,6 +24,10 @@ export const users = pgTable(
     themeId: text("theme_id").notNull().default("pandavocab"),
     darkMode: boolean("dark_mode").notNull().default(false),
     onboarded: boolean("onboarded").notNull().default(false),
+    /** Người dùng có quyền quản trị (xem màn hình Admin). */
+    isAdmin: boolean("is_admin").notNull().default(false),
+    /** Private key đã dùng để đăng ký tài khoản này. */
+    registeredByKeyId: text("registered_by_key_id"),
     yearWord: text("year_word"),
     yearVision: text("year_vision"),
     reminderEnabled: boolean("reminder_enabled").notNull().default(false),
@@ -285,6 +289,77 @@ export const favoriteSongs = pgTable(
 );
 
 /* ------------------------------------------------------------------ */
+/* Private key đăng ký tài khoản                                      */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Private key do admin sinh ra. Người dùng mới dùng key này để đăng ký
+ * tài khoản — tương tự "mã mời" nhưng dài hơn và có thể quản lý vòng đời.
+ *
+ * `keyHash` lưu băm SHA-256 của key. Bản gốc chỉ hiển thị đúng 1 lần
+ * ngay sau khi sinh, admin không thể xem lại key đã tạo.
+ */
+export const apiKeys = pgTable(
+  "api_keys",
+  {
+    id: text("id").primaryKey(),
+    /** Tên gợi nhớ do admin đặt, ví dụ "Marketing Q1". */
+    label: text("label").notNull(),
+    /** Băm của private key. */
+    keyHash: text("key_hash").notNull(),
+    /** 8 ký tự đầu để admin nhận diện nhanh trong danh sách. */
+    keyPrefix: text("key_prefix").notNull(),
+    /** Key còn dùng được hay không. */
+    isActive: boolean("is_active").notNull().default(true),
+    /** Số lần tối đa được dùng để đăng ký (null = không giới hạn). */
+    maxUses: integer("max_uses"),
+    /** Số lần đã dùng để đăng ký. */
+    usedCount: integer("used_count").notNull().default(0),
+    /** Ngày hết hạn (null = không hết hạn). */
+    expiresAt: timestamp("expires_at", { withTimezone: true }),
+    /** Ghi chú của admin. */
+    note: text("note"),
+    createdBy: text("created_by").references(() => users.id, {
+      onDelete: "set null",
+    }),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    /** Thời điểm bị vô hiệu hoá (null = còn hiệu lực). */
+    revokedAt: timestamp("revoked_at", { withTimezone: true }),
+  },
+  (t) => [
+    uniqueIndex("api_keys_key_hash_idx").on(t.keyHash),
+    index("api_keys_active_idx").on(t.isActive),
+  ],
+);
+
+/** Lần sử dụng của một private key — cho phép admin xem user nào đang dùng key. */
+export const apiKeyUsages = pgTable(
+  "api_key_usages",
+  {
+    id: text("id").primaryKey(),
+    keyId: text("key_id")
+      .notNull()
+      .references(() => apiKeys.id, { onDelete: "cascade" }),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    /** Thời điểm đăng ký bằng key này. */
+    usedAt: timestamp("used_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    /** Địa chỉ IP / user-agent tại thời điểm đăng ký. */
+    userAgent: text("user_agent"),
+  },
+  (t) => [
+    index("api_key_usages_key_idx").on(t.keyId),
+    index("api_key_usages_user_idx").on(t.userId),
+    uniqueIndex("api_key_usages_key_user_idx").on(t.keyId, t.userId),
+  ],
+);
+
+/* ------------------------------------------------------------------ */
 /* Types                                                               */
 /* ------------------------------------------------------------------ */
 
@@ -298,3 +373,5 @@ export type GoalStep = typeof goalSteps.$inferSelect;
 export type Habit = typeof habits.$inferSelect;
 export type MonthPlan = typeof monthPlans.$inferSelect;
 export type CustomArea = typeof customAreas.$inferSelect;
+export type ApiKey = typeof apiKeys.$inferSelect;
+export type ApiKeyUsage = typeof apiKeyUsages.$inferSelect;

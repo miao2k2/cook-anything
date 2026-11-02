@@ -85,6 +85,7 @@ async function main() {
     emailNormalized: EMAIL.toLowerCase(),
     name: "Minh",
     themeId: "pandavocab",
+    isAdmin: true,
     yearWord: "Bứt phá",
     yearVision:
       "Năm nay mình muốn có nhịp sống ổn định hơn: chạy bộ mỗi tuần, đọc 12 cuốn sách, và dành thời gian chất lượng cho gia đình.",

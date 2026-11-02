@@ -49,6 +49,13 @@ export const ICON_SYMBOLS: Record<string, string> = {
   bulb: `<circle class="pi-ia" cx="13.2" cy="9.4" r="5"/><path class="pi-sk" d="M9.3 15.6c0-1.7-2.9-3-2.9-6.3a5.6 5.6 0 0 1 11.2 0c0 3.3-2.9 4.6-2.9 6.3z"/><path class="pi-sk" d="M9.6 18.3h4.8M10.5 20.8h3"/><path class="pi-sk" d="M10.4 11.6l1.6 1.6 1.6-1.6M12 13.2v2.2"/>`,
   repeat: `<circle class="pi-ia" cx="13" cy="12" r="5"/><path class="pi-sk" d="M5 11a6.5 6.5 0 0 1 11.5-4.2M19 13a6.5 6.5 0 0 1-11.5 4.2"/><path class="pi-sk" d="M16.8 3.6v3.4h-3.4M7.2 20.4V17h3.4"/>`,
   flag: `<path class="pi-ia" d="M7 5h10.5l-2.4 3.8 2.4 3.8H7z"/><path class="pi-sk" d="M6 21V4M6 4.6h11.5l-2.4 3.8 2.4 3.8"/>`,
+  key: `<circle class="pi-ia" cx="7.4" cy="12" r="4.2"/><path class="pi-sk" d="M11.6 12h9M17.4 12v3.4M20.4 12v2.4"/>`,
+  shield: `<path class="pi-ia" d="M12 3.2l7.4 2.6v5.6c0 4.5-3 8.1-7.4 9.4-4.4-1.3-7.4-4.9-7.4-9.4V5.8z"/><path class="pi-sk" d="M9.2 12.2l2 2 3.8-4.2"/>`,
+  lock: `<rect class="pi-ia" x="4.8" y="10.4" width="14.4" height="9.6" rx="2.4"/><path class="pi-sk" d="M8.2 10.4V7.8a3.8 3.8 0 0 1 7.6 0v2.6"/><circle class="pi-dot" cx="12" cy="15" r="1.3"/>`,
+  ban: `<circle class="pi-ia" cx="12" cy="12" r="8.4"/><path class="pi-sk" d="M6.2 6.2l11.6 11.6"/>`,
+  copy: `<rect class="pi-sk" x="8.6" y="8.6" width="11" height="11" rx="2.2"/><path class="pi-sk" d="M15.4 8.6V6.6a2 2 0 0 0-2-2H6.6a2 2 0 0 0-2 2v6.8a2 2 0 0 0 2 2h2"/>`,
+  info: `<circle class="pi-ia" cx="12" cy="12" r="8.4"/><path class="pi-sk" d="M12 11v5.2"/><circle class="pi-dot" cx="12" cy="8.2" r="1.1"/>`,
+  refresh: `<path class="pi-sk" d="M20 12a8 8 0 1 1-2.4-5.7"/><path class="pi-sk" d="M20.2 4.2v4.4h-4.4"/>`,
 };
 
 export function IconSprite() {

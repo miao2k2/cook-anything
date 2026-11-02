@@ -16,9 +16,11 @@ import { Sidebar } from "@/components/sidebar";
  */
 export function AppShell({
   email,
+  isAdmin,
   children,
 }: {
   email: string;
+  isAdmin: boolean;
   children: ReactNode;
 }) {
   const pathname = usePathname();
@@ -26,7 +28,7 @@ export function AppShell({
 
   return (
     <div className="flex min-h-[100dvh]">
-      <Sidebar email={email} />
+      <Sidebar email={email} isAdmin={isAdmin} />
 
       <div className="flex-1 min-w-0 flex flex-col">
         <header className="md:hidden sticky top-0 z-20 flex items-center gap-2.5 h-14 px-4 border-b border-[var(--p-line)] bg-[var(--p-bg)]/85 backdrop-blur">
@@ -72,6 +74,7 @@ export function AppShell({
         <Drawer
           pathname={pathname}
           email={email}
+          isAdmin={isAdmin}
           onClose={() => setDrawerOpen(false)}
         />
       ) : null}

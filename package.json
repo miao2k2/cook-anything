@@ -9,6 +9,9 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "db:seed": "tsx scripts/seed.ts",
+    "db:key": "tsx scripts/create-key.ts",
+    "db:keys:check": "tsx scripts/check-keys.ts",
+    "db:keys:cleanup": "tsx scripts/cleanup-test-data.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio"
@@ -23,6 +26,7 @@
     "postgres": "^4.0.0",
     "react": "19.3.0",
     "react-dom": "19.3.0",
+    "server-only": "^0.0.1",
     "zod": "^4.6.7"
   },
   "devDependencies": {

@@ -49,3 +49,47 @@ export function normalizeEmail(email: string): string {
 export function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim());
 }
+
+/* ------------------------------------------------------------------ */
+/* Private key đăng ký tài khoản                                       */
+/* ------------------------------------------------------------------ */
+
+/** Định dạng private key: `PLN-XXXX-XXXX-XXXX-XXXX`. */
+const KEY_FORMAT = /^PLN-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/;
+
+// Bảng ký tự không dễ nhầm: bỏ 0/O, 1/I/L, 2/Z, 5/S, 8/B.
+const KEY_ALPHABET = "34679ACDEFGHJKMNPQRTUVWXY";
+
+/**
+ * Sinh private key ngẫu nhiên dạng `PLN-XXXX-XXXX-XXXX-XXXX`.
+ * Khoảng trống giữa ký tự không dùng vì người dùng có thể gõ tay.
+ */
+export function generateApiKey(): string {
+  const groups: string[] = [];
+
+  for (let g = 0; g < 4; g++) {
+    let group = "";
+    for (let i = 0; i < 4; i++) {
+      const index = randomInt(0, KEY_ALPHABET.length);
+      group += KEY_ALPHABET[index];
+    }
+    groups.push(group);
+  }
+
+  return `PLN-${groups.join("-")}`;
+}
+
+/** Kiểm tra định dạng private key. */
+export function isValidApiKeyFormat(key: string): boolean {
+  return KEY_FORMAT.test(key.trim().toUpperCase());
+}
+
+/** Chuẩn hoá key về dạng in hoa để so sánh. */
+export function normalizeApiKey(key: string): string {
+  return key.trim().toUpperCase();
+}
+
+/** 8 ký tự đầu của key để admin nhận diện nhanh (phần còn lại được che). */
+export function apiKeyPrefix(key: string): string {
+  return key.slice(0, 12);
+}

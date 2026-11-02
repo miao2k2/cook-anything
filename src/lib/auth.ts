@@ -1,7 +1,8 @@
 import "server-only";
 
 import { cookies, headers } from "next/headers";
-import { and, eq, gt } from "drizzle-orm";
+import { cacheLife } from "next/cache";
+import { and, eq, sql } from "drizzle-orm";
 
 import { db } from "@/db";
 import { sessions, users } from "@/db/schema";
@@ -17,6 +18,8 @@ export type SessionUser = {
   themeId: string;
   darkMode: boolean;
   onboarded: boolean;
+  isAdmin: boolean;
+  registeredByKeyId: string | null;
   yearWord: string | null;
   yearVision: string | null;
   reminderEnabled: boolean;
@@ -66,6 +69,12 @@ export async function destroySession(): Promise<void> {
 
 /** Lấy người dùng hiện tại (null nếu chưa đăng nhập). */
 export async function getCurrentUser(): Promise<SessionUser | null> {
+  "use cache: private";
+
+  // Phiên có thời hạn 30 ngày, nhưng cache client chỉ cần đủ lâu để điều
+  // hướng giữa các trang là tức thì. `stale` tối thiểu 5 phút.
+  cacheLife({ stale: 300, revalidate: 60, expire: 3600 });
+
   const cookieStore = await cookies();
   const token = cookieStore.get(SESSION_COOKIE)?.value;
   if (!token) return null;
@@ -78,6 +87,8 @@ export async function getCurrentUser(): Promise<SessionUser | null> {
       themeId: users.themeId,
       darkMode: users.darkMode,
       onboarded: users.onboarded,
+      isAdmin: users.isAdmin,
+      registeredByKeyId: users.registeredByKeyId,
       yearWord: users.yearWord,
       yearVision: users.yearVision,
       reminderEnabled: users.reminderEnabled,
@@ -89,7 +100,9 @@ export async function getCurrentUser(): Promise<SessionUser | null> {
     .where(
       and(
         eq(sessions.tokenHash, hashToken(token)),
-        gt(sessions.expiresAt, new Date()),
+        // So sánh trong DB bằng `now()` (transaction-stable) thay vì `new Date()`
+        // ở tầng JS — giá trị không đổi giữa các lần render nên không phá cache.
+        sql`${sessions.expiresAt} > now()`,
       ),
     )
     .limit(1);
@@ -108,6 +121,18 @@ export async function requireUser(): Promise<SessionUser> {
   const user = await getCurrentUser();
   if (!user) {
     throw new Error("Bạn cần đăng nhập để thực hiện thao tác này.");
+  }
+  return user;
+}
+
+/**
+ * Bắt buộc là quản trị viên — dùng cho màn hình Admin và các action quản lý key.
+ * Ném lỗi nếu người dùng hiện tại không có quyền.
+ */
+export async function requireAdmin(): Promise<SessionUser> {
+  const user = await requireUser();
+  if (!user.isAdmin) {
+    throw new Error("Bạn không có quyền truy cập khu vực quản trị.");
   }
   return user;
 }

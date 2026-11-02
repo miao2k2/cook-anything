@@ -5,12 +5,23 @@ import { usePathname } from "next/navigation";
 
 import { Icon } from "@/components/icon";
 import { LogoutButton } from "@/components/logout-btn";
-import { PRIMARY_NAV, SECONDARY_NAV, isActive } from "@/lib/nav";
+import {
+  ADMIN_NAV,
+  PRIMARY_NAV,
+  SECONDARY_NAV,
+  isActive,
+} from "@/lib/nav";
 
 /**
  * Sidebar — chỉ hiện từ breakpoint `md` trở lên.
  */
-export function Sidebar({ email }: { email: string }) {
+export function Sidebar({
+  email,
+  isAdmin,
+}: {
+  email: string;
+  isAdmin: boolean;
+}) {
   const pathname = usePathname();
 
   const links = (items: typeof PRIMARY_NAV) =>
@@ -53,6 +64,14 @@ export function Sidebar({ email }: { email: string }) {
         <div className="my-4 border-t border-dashed border-[var(--p-line)]" />
 
         <ul className="grid gap-1">{links(SECONDARY_NAV)}</ul>
+
+        {isAdmin ? (
+          <>
+            <div className="my-4 border-t border-dashed border-[var(--p-line)]" />
+
+            <ul className="grid gap-1">{links(ADMIN_NAV)}</ul>
+          </>
+        ) : null}
       </nav>
 
       <div className="px-4 py-4 border-t border-[var(--p-line)]">

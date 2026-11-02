@@ -19,6 +19,11 @@ export const SECONDARY_NAV: NavItem[] = [
   { href: "/settings", label: "Cài đặt", icon: "settings" },
 ];
 
+/** Mục dành riêng cho quản trị viên — chỉ hiện khi user có quyền admin. */
+export const ADMIN_NAV: NavItem[] = [
+  { href: "/admin", label: "Admin", icon: "shield" },
+];
+
 export function isActive(pathname: string, href: string): boolean {
   return pathname === href || pathname.startsWith(`${href}/`);
 }

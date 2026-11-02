@@ -1,8 +1,12 @@
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 import { Icon } from "@/components/icon";
 import { LoginForm } from "@/components/login";
 import { getCurrentUser } from "@/lib/auth";
+
+/** Trang đọc cookie phiên để chuyển hướng — cho phép blocking route. */
+export const instant = false;
 
 export default async function LoginPage() {
   const user = await getCurrentUser();
@@ -40,6 +44,17 @@ export default async function LoginPage() {
         </div>
 
         <LoginForm />
+
+        <p className="w-full mt-4 text-center text-sm font-bold text-[var(--p-muted)]">
+          Có private key?{" "}
+          <Link
+            href="/register"
+            className="inline-flex items-center gap-1 text-[var(--p-accent)] hover:underline underline-offset-4"
+          >
+            <Icon name="key" size={14} />
+            Đăng ký tài khoản
+          </Link>
+        </p>
       </div>
     </div>
   );

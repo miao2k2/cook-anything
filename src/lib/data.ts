@@ -1,6 +1,7 @@
 import "server-only";
 
 import { and, asc, desc, eq, gte, inArray, lte } from "drizzle-orm";
+import { connection } from "next/server";
 
 import { db } from "@/db";
 import {
@@ -206,6 +207,10 @@ export type TodayBundle = {
 
 /** Gom toàn bộ dữ liệu cần cho màn "Hôm nay" trong 1 lần gọi. */
 export async function getTodayBundle(userId: string): Promise<TodayBundle> {
+  // Ngày hôm nay là giá trị thay đổi liên tục — phải tính ở request-time
+  // thay vì lúc prerender.
+  await connection();
+
   const date = todayKey();
   const now = startOfToday();
 
@@ -308,6 +313,9 @@ export async function getStats(
   userId: string,
   weeks: 4 | 8 | 12,
 ): Promise<StatsBundle> {
+  // Khoảng thống kê phụ thuộc ngày hiện tại — tính ở request-time.
+  await connection();
+
   const now = startOfToday();
   const from = addDays(now, -weeks * 7 + 1);
   const fromKey = toDateKey(from);
