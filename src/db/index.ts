@@ -10,7 +10,6 @@ import * as schema from "./schema";
  *  - DATABASE_URL: chuỗi kết nối (bắt buộc)
  *  - DATABASE_SSL: "true" để bật TLS (dùng cho Neon/Supabase...)
  */
-
 function createClient() {
   const connectionString = process.env.DATABASE_URL;
 
@@ -20,10 +19,16 @@ function createClient() {
     );
   }
 
+  // URL có `?sslmode=require` (Supabase/Neon/RDS) thì tự bật TLS.
+  // Ngoài ra có thể bật thủ công bằng DATABASE_SSL=true.
+  const needsSsl =
+    process.env.DATABASE_SSL === "true" ||
+    /[?&]sslmode=require/i.test(connectionString);
+
   return postgres(connectionString, {
     max: process.env.NODE_ENV === "production" ? 10 : 1,
     prepare: false,
-    ssl: process.env.DATABASE_SSL === "true" ? "require" : undefined,
+    ssl: needsSsl ? "require" : undefined,
     onnotice: () => {},
   });
 }
